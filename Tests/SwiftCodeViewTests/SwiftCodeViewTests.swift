@@ -1,6 +1,13 @@
 import Testing
+
 @testable import SwiftCodeView
 
 @Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    let viewModel = SwiftCodeViewModel()
+    viewModel.highlight(
+        code:
+            """
+            func main() {}
+            """
+    )
 }

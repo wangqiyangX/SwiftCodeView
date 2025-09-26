@@ -35,7 +35,7 @@ struct SyntaxHighlightingTheme {
 }
 
 @Observable
-final class SwiftCodeViewModel {
+public final class SwiftCodeViewModel {
     var config: LanguageConfiguration?
     var parser: Parser
     var attributedText: AttributedString = ""
@@ -43,7 +43,7 @@ final class SwiftCodeViewModel {
     var showLineNumbers: Bool = true
     private var bundledHighlightsQuery: Query?
 
-    init() {
+    public init() {
         self.parser = Parser()
         setupLanguageConfiguration()
         //        setupBundledQueriesIfNeeded()

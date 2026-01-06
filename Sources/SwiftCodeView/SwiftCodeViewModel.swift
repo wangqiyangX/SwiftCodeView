@@ -13,6 +13,7 @@ import TreeSitterSwift
 struct SyntaxHighlightingTheme {
     let plain: Color
     let attribute: Color
+    let comment: Color
     let spell: Color
     let keyword: Color
     let number: Color
@@ -20,17 +21,22 @@ struct SyntaxHighlightingTheme {
     let function: Color
     let type: Color
     let variable: Color
+    let `operator`: Color
+    let punctuation: Color
 
     static let `default` = SyntaxHighlightingTheme(
         plain: Color.primary,
         attribute: Color.brown,
-        spell: Color.secondary.opacity(0.8),
+        comment: Color.secondary,
+        spell: Color.secondary,
         keyword: Color.green,
         number: Color.yellow,
         string: Color.orange,
         function: Color.purple,
         type: Color.red,
-        variable: Color.blue
+        variable: Color.blue,
+        operator: Color.primary,
+        punctuation: Color.primary
     )
 }
 
@@ -164,15 +170,18 @@ public final class SwiftCodeViewModel {
 
     private func colorForHighlight(_ highlightName: String) -> Color {
         switch highlightName {
+        case "comment.documentation":
+            return theme.comment
         case "spell":
             return theme.spell
-        case "variable":
+        case "variable", "variable.parameter":
             return theme.variable
         case "attribute":
             return theme.attribute
-        case "keyword", "keyword.import", "keyword.modifier":
+        case "keyword", "keyword.import", "keyword.modifier",
+            "keyword.function", "keyword.conditional":
             return theme.keyword
-        case "string":
+        case "string", "string.escape":
             return theme.string
         case "function.call":
             return theme.function
@@ -180,9 +189,12 @@ public final class SwiftCodeViewModel {
             return theme.type
         case "number":
             return theme.number
+        case "operator":
+            return theme.operator
+        case "punctuation", "punctuation.delimiter":
+            return theme.punctuation
         default:
             return theme.plain
         }
     }
-
 }
